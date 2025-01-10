@@ -1,6 +1,10 @@
+import {Component} from 'react'
+import Countries from './components/Countries'
+import VisitedCountries from './components/VisitedCountries'
+
 import './App.css'
 
-//This is the list (static data) used in the application. You can move it to any component if needed.
+// This is the list (static data) used in the application. You can move it to any component if needed.
 
 const initialCountriesList = [
   {
@@ -76,6 +80,71 @@ const initialCountriesList = [
 ]
 
 // Replace your code here
-const App = () => <h1>Hello World</h1>
+class App extends Component {
+  state = {countriesList: initialCountriesList}
+
+  addVisited = id => {
+    const {countriesList} = this.state
+    const visitedCountry = countriesList.map(eachItem => {
+      if (eachItem.id === id) {
+        const updateList = {...eachItem, isVisited: !eachItem.isVisited}
+        return updateList
+      }
+      return eachItem
+    })
+    this.setState({countriesList: visitedCountry})
+  }
+
+  removeVisited = id => {
+    const {countriesList} = this.state
+    const visitedCountry = countriesList.map(eachItem => {
+      if (eachItem.id === id) {
+        const updateList = {...eachItem, isVisited: !eachItem.isVisited}
+        return updateList
+      }
+      return eachItem
+    })
+    this.setState({countriesList: visitedCountry})
+  }
+
+  render() {
+    const {countriesList} = this.state
+    const visitedCountries = countriesList.filter(
+      eachCountry => eachCountry.isVisited === true,
+    )
+    return (
+      <div className="app-container">
+        <div className="responsive-container">
+          <h1 className="heading">Countries</h1>
+          <ul className="countries-list">
+            {countriesList.map(country => (
+              <Countries
+                key={country.id}
+                countryDetails={country}
+                addVisited={this.addVisited}
+              />
+            ))}
+          </ul>
+          <h1 className="heading">Visited Countries</h1>
+          {visitedCountries <= 0 ? (
+            <div className="no-visit-container">
+              <p className="no-text">No Countries Visited Yet!</p>
+            </div>
+          ) : (
+            <ul className="visited-countries-list">
+              {visitedCountries.map(visitedCountry => (
+                <VisitedCountries
+                  key={visitedCountry.id}
+                  visitedCountryDetails={visitedCountry}
+                  removeVisited={this.removeVisited}
+                />
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    )
+  }
+}
 
 export default App

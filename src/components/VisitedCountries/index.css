@@ -1,0 +1,26 @@
+.visited-country-item {
+  flex-grow: 1;
+  width: 30%;
+  max-width: 300px;
+  background-color: #334155;
+}
+.country-img {
+    width: 100%;
+}
+.country-cart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.remove-btn {
+  padding: 8px 20px;
+  border: 1px solid #f8fafc;
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 16px;
+  color: #f1f5f9;
+  font-family: 'Roboto';
+}
